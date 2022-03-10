@@ -11,6 +11,8 @@ const Cart = (props) => {
 
   // 2. Context 적용 후.
 
+// console.log(props);
+
   const cartItems = (
     <ul className={classes['cart-items']}>
       

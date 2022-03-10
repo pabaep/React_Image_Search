@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import classes from './HeaderCart.module.css'
 
 const HeaderCart = (props) => {
+
+  const [text, setText] = useState('');
+
+  const onChange = (e) => {
+    console.log(e.target);
+    console.log(e.target.value);
+    setText(e.target.value);
+  }
+
   return (
+    <>
+    <input type="text" id="word" placeholder="Type" onChange={onChange} value={text}/>
     <button className={classes.button} onClick={props.onOpen}>
-        <span>내 장바구니</span>
+        <span>검색</span>
     </button>
+    </>
   )
 }
 
