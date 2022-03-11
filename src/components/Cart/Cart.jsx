@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import Modal from '../Commons/Modal'
 import classes from './Cart.module.css'
 import Button from '../Commons/Button'
@@ -9,36 +9,34 @@ import CartItem from './CartItem'
 
 const Cart = (props) => {
 
-  // 1. Context 적용 전.
-
-  // 2. Context 적용 후.
-
   const queryContext = useContext(QueryContext)
   console.log(queryContext.query);
+
+  const url = "https://cdn.pixabay.com/photo/2021/03/16/21/46/tea-6101059_960_720.jpg"
 
 // console.log(props);
 
   const cartItems = (
-    <ul className={classes['cart-items']}>
-      <CartItem />
-    </ul>
-    
+    <CartItem url={url}/>
   );
 
-
+    const openAlert = () => {
+        if(window.confirm("축하합니다! 원하는 이미지를 찾으셨군요!\n다운로드를 원하시면 '확인'버튼을 눌러주세요.\n새창에 나온 이미지를 다운받을 수 있습니다.")){
+          window.open(url);
+        }
+    }
 
   const modalButton = (
     <div className={classes.buttons}>
       <Button onClick={props.onClose}>Close</Button>
-      <Button>Order</Button>
+      <Button>Retry</Button>
+      <Button onClick={openAlert}>Correct</Button>
     </div>
   );
   
   const cartModalContent = (
     <>
-      {/* 장바구니 목록(cartItems) */}
       {cartItems}
-      {/* 장바구니 목록 총 합(cartItemsTotal) */}
       {/* 취소, 주문 버튼(modalButton) */}
       {modalButton}
     </>
