@@ -3,6 +3,7 @@ import Modal from '../Commons/Modal'
 import classes from './Cart.module.css'
 import Button from '../Commons/Button'
 import QueryContext from '../../store/QueryContext'
+import ImageContext from '../../store/ImageContext'
 import CartItem from './CartItem'
 
 
@@ -12,6 +13,9 @@ const Cart = (props) => {
   const queryContext = useContext(QueryContext)
   console.log(queryContext.query);
 
+  const imageContext = useContext(ImageContext);
+  console.log(imageContext.imageurl);
+  
   const url = "https://cdn.pixabay.com/photo/2021/03/16/21/46/tea-6101059_960_720.jpg"
 
 // console.log(props);

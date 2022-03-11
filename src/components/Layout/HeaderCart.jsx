@@ -1,11 +1,13 @@
 import React, { useContext, useState } from 'react'
 import QueryContext from '../../store/QueryContext';
 import classes from './HeaderCart.module.css'
+import ImageContext from '../../store/ImageContext';
 
 const HeaderCart = (props) => {
 
   const [text, setText] = useState('');
   const queryContext = useContext(QueryContext);
+  const imageContext = useContext(ImageContext);
 
   const onChange = (e) => {
     // console.log(e.target);
@@ -15,10 +17,42 @@ const HeaderCart = (props) => {
 
   const onBlur = () => {
     queryContext.updateQuery(text);
+    const textbox = {
+      inText: text,
+    };
+    const url = fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
+    method: "post", //통신방법
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(textbox), //textbox라는 객체를 보냄
+  }).then(response => response.text()).then(imageContext.updateImage);
+
   };
 
   // queryContext.updateQuery(text);
   // console.log(queryContext.query);
+
+  /*
+    const onclick = () => {
+    const textbox = {
+      inText: text,
+    };
+    const url = fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
+    method: "post", //통신방법
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(textbox), //textbox라는 객체를 보냄
+  }).then(response => response.text()).then(imageContext.updateImage);
+  // }).then(response => response.text())
+
+  console.log(url.value);
+  if(url.value){
+    openCartHandler();
+  }
+  }
+  */
 
   return (
     <>
