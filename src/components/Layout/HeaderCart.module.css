@@ -1,8 +1,15 @@
+@font-face {
+    font-family: 'EliceDigitalBaeum';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_elice@1.0/EliceDigitalBaeum.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .button {
     cursor: pointer;
-    
+    border-radius: 14px;
     border: none;
-    background-color: #3c6382;
+    background-color: #7DC79F;
     color: white;
     padding: 0.75rem 3rem;
     margin: 1rem;
@@ -10,14 +17,25 @@
     justify-content: space-around;
     align-items: center;
     font-weight: bold;
+    font-family: EliceDigitalBaeum;
+    font-size: 1.25rem;
 }
 
 .button:hover {
-    background-color: #60a3bc;
+    background-color: #317B53;
 }
 
 .icon {
     width: 1.35rem;
     height: 1.35rem;
     margin-right: 0.5rem;
+}
+
+.input {
+    border-radius: 14px;
+    margin: 1rem;
+    width: 20rem;
+    font-family: EliceDigitalBaeum;
+    font-size: 1.25rem;
+    padding: 0.75rem;
 }

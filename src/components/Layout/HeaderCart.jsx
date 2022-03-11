@@ -23,9 +23,9 @@ const HeaderCart = (props) => {
   return (
     <>
 
-    <input type="text" id="word" placeholder="Type" onChange={onChange} onBlur={onBlur} value={text}/>
+    <input className={classes.input} type="text" id="word" placeholder="Type" onChange={onChange} onBlur={onBlur} value={text}/>
     <button className={classes.button} onClick={props.onOpen}>
-        <span>검색</span>
+        <span>검 색</span>
     </button>
     </>
   )
