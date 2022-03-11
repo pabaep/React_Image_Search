@@ -38,4 +38,9 @@
     font-family: EliceDigitalBaeum;
     font-size: 1.25rem;
     padding: 0.75rem;
+    border: none;
+}
+
+.input:focus {
+    outline: none;
 }
