@@ -11,8 +11,11 @@ const HeaderCart = (props) => {
     // console.log(e.target);
     // console.log(e.target.value);
     setText(e.target.value);
-    queryContext.updateQuery(text);
   }
+
+  const onBlur = () => {
+    queryContext.updateQuery(text);
+  };
 
   // queryContext.updateQuery(text);
   // console.log(queryContext.query);
@@ -20,7 +23,7 @@ const HeaderCart = (props) => {
   return (
     <>
 
-    <input type="text" id="word" placeholder="Type" onChange={onChange} value={text}/>
+    <input type="text" id="word" placeholder="Type" onChange={onChange} onBlur={onBlur} value={text}/>
     <button className={classes.button} onClick={props.onOpen}>
         <span>검색</span>
     </button>
