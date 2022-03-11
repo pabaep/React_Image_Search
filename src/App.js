@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Header from './components/Layout/Header'
 import Cart from './components/Cart/Cart'
+import QueryProvider from './store/QueryProvider';
 
 const App = () => {
   const [cartIsShown, setCartIsShown] = useState(false);
@@ -14,10 +15,10 @@ const App = () => {
   };
 
   return (
-    <>  
-    {cartIsShown && <Cart onClose={closeCartHandler}/>}
+    <QueryProvider>
+      {cartIsShown && <Cart onClose={closeCartHandler}/>}
       <Header onOpen={openCartHandler}/>
-    </>
+    </QueryProvider>
   )
 }
 

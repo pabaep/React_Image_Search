@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import Modal from '../Commons/Modal'
 import classes from './Cart.module.css'
 import Button from '../Commons/Button'
+import QueryContext from '../../store/QueryContext'
 
 
 
@@ -10,6 +11,9 @@ const Cart = (props) => {
   // 1. Context 적용 전.
 
   // 2. Context 적용 후.
+
+  const queryContext = useContext(QueryContext)
+  console.log(queryContext.query);
 
 // console.log(props);
 
