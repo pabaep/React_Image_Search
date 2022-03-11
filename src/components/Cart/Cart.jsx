@@ -3,6 +3,7 @@ import Modal from '../Commons/Modal'
 import classes from './Cart.module.css'
 import Button from '../Commons/Button'
 import QueryContext from '../../store/QueryContext'
+import CartItem from './CartItem'
 
 
 
@@ -19,8 +20,9 @@ const Cart = (props) => {
 
   const cartItems = (
     <ul className={classes['cart-items']}>
-      
+      <CartItem />
     </ul>
+    
   );
 
 

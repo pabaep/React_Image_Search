@@ -22,8 +22,8 @@ const ModalWindow = (props) => {
 // const clientSecret = process.env.CLIENT_SECRET
 
 
-const CLIENT_ID='ON3loCSF2CLvnJMjKwAC'
-const CLIENT_SECRET='ScY6DnsZFB'
+// const CLIENT_ID='ON3loCSF2CLvnJMjKwAC'
+// const CLIENT_SECRET='ScY6DnsZFB'
 
 
 const portalElement = document.getElementById('modal-window');
