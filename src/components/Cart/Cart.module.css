@@ -16,14 +16,20 @@
   }
   
 .buttons {
-      text-align: right;
+      display: flex;
+      margin-top: 1rem;
+      justify-content: center;
   }
   
 .buttons button {
-      margin: 0 0.25rem;
+      margin: 0 1rem;
   }
   
 .buttons button:first-child {
       background-color: white;
       color: #317B53;
   }
+.buttons button:nth-last-child(2) {
+    background-color: crimson;
+    border: crimson;
+}
