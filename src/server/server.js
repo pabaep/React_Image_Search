@@ -29,7 +29,6 @@ const {initialize} = require("koalanlp/Util");
 const {Tagger} = require("koalanlp/proc");
 const {EUNJEON} = require("koalanlp/API");
 
-let check_index = 1;
 
 app.post("/text", (req, res) => {//데이터 받는 곳
   const textdata = req.body.inText;
@@ -55,7 +54,6 @@ app.post("/text", (req, res) => {//데이터 받는 곳
       link = parseJsonToObject['items'][0]['link']; 
       console.log(link);
       
-        check_index = 1;
         res.json(link);
 
       }else{
@@ -65,50 +63,18 @@ app.post("/text", (req, res) => {//데이터 받는 곳
     })
   });
 
-app.post("/keywordimage", (req, res) => {//데이터 받는 곳
-    const textdata = req.body.inText;
-    console.log(textdata); 
-  
-    const url = "https://openapi.naver.com/v1/search/image.json?query=" + encodeURI(textdata) + "&display=1&start=1&sort=sim";
-    
-    const options = {
-      url: url,
-      headers: {
-        "X-Naver-Client-Id": clientId,
-        "X-Naver-Client-Secret": clientSecret,
-      }
-    };
-    
-    
-    request.get(options, (error, response, body) => { 
-        if(!error && response.statusCode == 200){
-          // const parseBody = JSON.parse(body); // parse() : string -> object로 변환
-        //   console.log(typeof parseBody, parseBody);
-        
-        const parseJsonToObject = JSON.parse(body);
-        
-        link = parseJsonToObject['items'][0]['link']; 
-        console.log(link);
-        
-          res.json(link);
 
-        }else{
-          console.log(`error = ${response.statusCode}`);
-        }
-        
-      })
-    });
     
     
   app.post("/keyword", (req, res) => {//데이터 받는 곳
-  const textdata = req.body.inText;
+  var textdata = req.body.inText;
   console.log(textdata); 
   
   var keyword_text = '';
   
-  const url = "https://openapi.naver.com/v1/search/news.json?query=" + encodeURI(textdata) + "&display=100&start=1&sort=sim";
+  var url = "https://openapi.naver.com/v1/search/news.json?query=" + encodeURI(textdata) + "&display=30&start=1&sort=sim";
   
-  const options = {
+  var options = {
     url: url,
     headers: {
         "X-Naver-Client-Id": clientId,
@@ -180,21 +146,21 @@ app.post("/keywordimage", (req, res) => {//데이터 받는 곳
 
           console.log(sortable);
 
-          var index_r = 0;
+          let index_r = 0;
           for (i of Object.keys(sortable)) {
             
             keyword_text = keyword_text + ' ' + i;
-            if (index_r == check_index) {
+            if (index_r == 1) {
               break;
             }
             index_r++;
           }
           
+          
           // console.log(keyword_text);
-          res.json(keyword_text);
           // res.redirect('image');
-          check_index++;
           // console.log(check_index);
+          res.json(keyword_text);
           
         }).catch((err) => console.error('Error occurred!', err)).finally(()=>console.log("end"));;
         
