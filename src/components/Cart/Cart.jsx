@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Modal from '../Commons/Modal'
 import classes from './Cart.module.css'
 import Button from '../Commons/Button'
@@ -10,13 +10,13 @@ import CartItem from './CartItem'
 
 const Cart = (props) => {
 
-  const queryContext = useContext(QueryContext)
+  let queryContext = useContext(QueryContext)
   console.log(queryContext.query);
 
-  const imageContext = useContext(ImageContext);
+  let imageContext = useContext(ImageContext);
   console.log(imageContext.imageurl);
   
-  const url = imageContext.imageurl.replace(/\"/gi, "");
+  let url = imageContext.imageurl.replace(/\"/gi, "");
   
 
   const cartItems = (
@@ -29,8 +29,58 @@ const Cart = (props) => {
         }
     }
 
+    useEffect(() => {
+      console.log("업데이트가 됭서다");
+
+      let text = queryContext.query;
+
+    const textbox = {
+      inText: text,
+    };
+    fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
+    method: "post", //통신방법
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(textbox), //textbox라는 객체를 보냄
+  }).then(response => response.text()).then(imageContext.updateImage);
+
+    }, [queryContext])
+
   const openRetry = () => {
-    
+
+  if(window.confirm("원하시는 이미지가 아니시군요! \n 만약 원하시는 이미지를 찾고 싶으시면 '확인'버튼을 눌러주세요.")){
+    const text = queryContext.query;
+
+    const keywordbox = {
+      inText: text,
+    };
+    fetch("http://localhost:3001/keyword", { //text 주소에서 받을 예정
+    method: "post", //통신방법
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(keywordbox), //textbox라는 객체를 보냄
+  }).then(response => response.text()).then(queryContext.updateQuery);
+
+  }
+
+
+//   const keyword_text = queryContext.query;
+//   console.log(keyword_text);
+//   console.log("dddddd");
+//   const textbox = {
+//     inText: keyword_text,
+//   };
+//   fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
+//   method: "post", //통신방법
+//   headers: {
+//     "content-type": "application/json",
+//   },
+//   body: JSON.stringify(textbox), //textbox라는 객체를 보냄
+// // }).then(response => response.text()).then(console.log));
+// }).then(response => response.text()).then(imageContext.updateImage);
+
   }
 
 

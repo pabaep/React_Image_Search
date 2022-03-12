@@ -27,7 +27,6 @@ const HeaderCart = (props) => {
       "content-type": "application/json",
     },
     body: JSON.stringify(textbox), //textbox라는 객체를 보냄
-  // }).then(response => response.text()).then(console.log));
   }).then(response => response.text()).then(imageContext.updateImage);
 
   };
