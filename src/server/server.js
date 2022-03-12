@@ -31,11 +31,46 @@ const {EUNJEON} = require("koalanlp/API");
 
 let check_index = 1;
 
-
 app.post("/text", (req, res) => {//데이터 받는 곳
+  const textdata = req.body.inText;
+  console.log(textdata); 
+
+
+  const url = "https://openapi.naver.com/v1/search/image.json?query=" + encodeURI(textdata) + "&display=1&start=1&sort=sim";
+  
+  const options = {
+    url: url,
+    headers: {
+      "X-Naver-Client-Id": clientId,
+      "X-Naver-Client-Secret": clientSecret,
+    }
+  };
+  
+  
+  request.get(options, (error, response, body) => { 
+      if(!error && response.statusCode == 200){
+        // const parseBody = JSON.parse(body); // parse() : string -> object로 변환
+      //   console.log(typeof parseBody, parseBody);
+      
+      const parseJsonToObject = JSON.parse(body);
+      //   console.log(typeof parseJsonToObject, parseJsonToObject);
+      
+      link = parseJsonToObject['items'][0]['link']; 
+      console.log(link);
+      
+        check_index = 1;
+        res.json(link);
+
+      }else{
+        console.log(`error = ${response.statusCode}`);
+      }
+      
+    })
+  });
+
+app.post("/keywordimage", (req, res) => {//데이터 받는 곳
     const textdata = req.body.inText;
     console.log(textdata); 
-
   
     const url = "https://openapi.naver.com/v1/search/image.json?query=" + encodeURI(textdata) + "&display=1&start=1&sort=sim";
     
@@ -54,18 +89,10 @@ app.post("/text", (req, res) => {//데이터 받는 곳
         //   console.log(typeof parseBody, parseBody);
         
         const parseJsonToObject = JSON.parse(body);
-        //   console.log(typeof parseJsonToObject, parseJsonToObject);
         
         link = parseJsonToObject['items'][0]['link']; 
         console.log(link);
         
-          
-          // const imageContext = useContext(ImageContext);
-          // imageContext.updateImage(link);
-          
-
-
-          check_index = 1;
           res.json(link);
 
         }else{
@@ -130,13 +157,8 @@ app.post("/text", (req, res) => {//데이터 받는 곳
               console.log(sent.surfaceString());
       
               console.log("# Analysis Result");
-              // console.log(sent.singleLineString());
+              // console.log(sent.singleL ineString());
               sent.forEach((word) => {
-                    // console.log(`Word [${word.id}] ${word.surface} = `);
-      
-                  // word.forEach((morph) => {
-                  //     console.log(`${morph.surface}/${morph.tag} `);
-                  // });
                   
                   word.forEach((morph) =>{
                     if(morph.tag['tagname'] == 'NNP' || morph.tag['tagname'] == 'NNG'){
@@ -161,19 +183,6 @@ app.post("/text", (req, res) => {//데이터 받는 곳
           .sort(([, a], [, b]) => b - a)
           .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
       
-          // console.log(typeof sortable, sortable);
-          
-          // console.log(JSON.stringify(sortable));
-          
-          // console.log(Object.keys(sortable));
-          
-          // console.log(Object.keys.sortable[0])
-      
-          // var index_r = 0;
-          // for (i of Object.keys(sortable)) {
-          //   arrResult[index_r] = i; 
-          //   index_r++;
-          // }
 
           console.log(sortable);
 
@@ -192,20 +201,15 @@ app.post("/text", (req, res) => {//데이터 받는 곳
           // res.redirect('image');
           check_index++;
           // console.log(check_index);
-
           
-                  
+        }).catch((err) => console.error('Error occurred!', err)).finally(()=>console.log("end"));;
+        
+      }else{
+        console.log(`error = ${response.statusCode}`);
+      }
     });
-
-    
-    }else{
-      console.log(`error = ${response.statusCode}`);
-    }
-  
   });
-});
-
-
+  
 
 
 app.listen(port, () => {

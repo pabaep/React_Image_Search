@@ -37,7 +37,7 @@ const Cart = (props) => {
     const textbox = {
       inText: text,
     };
-    fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
+    fetch("http://localhost:3001/keywordimage", { //text 주소에서 받을 예정
     method: "post", //통신방법
     headers: {
       "content-type": "application/json",
