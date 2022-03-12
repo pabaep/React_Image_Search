@@ -10,7 +10,7 @@ const ImageProvider = (props) => {
 
 
     const imageContext = {
-      image: imageState.imageurl,
+      imageurl: imageState.imageurl,
       updateImage: updateImageItemHandler
     }
     console.log(imageContext);

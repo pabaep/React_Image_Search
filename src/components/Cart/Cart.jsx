@@ -16,9 +16,8 @@ const Cart = (props) => {
   const imageContext = useContext(ImageContext);
   console.log(imageContext.imageurl);
   
-  const url = "https://cdn.pixabay.com/photo/2021/03/16/21/46/tea-6101059_960_720.jpg"
-
-// console.log(props);
+  const url = imageContext.imageurl.replace(/\"/gi, "");
+  
 
   const cartItems = (
     <CartItem url={url}/>
@@ -30,10 +29,15 @@ const Cart = (props) => {
         }
     }
 
+  const openRetry = () => {
+    
+  }
+
+
   const modalButton = (
     <div className={classes.buttons}>
       <Button onClick={props.onClose}>Close</Button>
-      <Button>Retry</Button>
+      <Button onClick={openRetry}>Retry</Button>
       <Button onClick={openAlert}>Correct</Button>
     </div>
   );
