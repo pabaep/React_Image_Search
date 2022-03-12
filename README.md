@@ -27,10 +27,12 @@
 ![GOMCAM 20220312_2109100202](https://user-images.githubusercontent.com/57746855/158017475-82f44197-00c2-4f71-becd-27bda9d321c7.gif)
 
 ## 트러블 슈팅
-+ 
++ Context Provider 활용한 전역 변수 관리
++ API 호출
 
 ## 개선 사항
 + retry가 한 번만 가능
++ 검색 중 로딩바 추가
 
 ## etc
 + 버전 관리의 중요성을 알게 됨
