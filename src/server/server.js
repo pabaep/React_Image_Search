@@ -49,11 +49,8 @@ app.post("/text", (req, res) => {//데이터 받는 곳
   
   request.get(options, (error, response, body) => { 
       if(!error && response.statusCode == 200){
-        // const parseBody = JSON.parse(body); // parse() : string -> object로 변환
-      //   console.log(typeof parseBody, parseBody);
       
       const parseJsonToObject = JSON.parse(body);
-      //   console.log(typeof parseJsonToObject, parseJsonToObject);
       
       link = parseJsonToObject['items'][0]['link']; 
       console.log(link);
@@ -110,7 +107,6 @@ app.post("/keywordimage", (req, res) => {//데이터 받는 곳
   var keyword_text = '';
   
   const url = "https://openapi.naver.com/v1/search/news.json?query=" + encodeURI(textdata) + "&display=100&start=1&sort=sim";
-  //  + encodeURI(query) + "&display=10&start=1&sort=sim";
   
   const options = {
     url: url,
@@ -124,8 +120,6 @@ app.post("/keywordimage", (req, res) => {//데이터 받는 곳
   
   request.get(options, (error, response, body) => { 
     if(!error && response.statusCode == 200){
-      // const parseBody = JSON.parse(body); // parse() : string -> object로 변환
-      // console.log(typeof parseBody, parseBody);
       
       const parseJsonToObject = JSON.parse(body);
       console.log(typeof parseJsonToObject, parseJsonToObject);

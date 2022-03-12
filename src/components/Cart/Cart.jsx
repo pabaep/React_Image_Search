@@ -30,7 +30,6 @@ const Cart = (props) => {
     }
 
     useEffect(() => {
-      console.log("업데이트가 됭서다");
 
       let text = queryContext.query;
 
