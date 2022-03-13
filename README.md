@@ -44,7 +44,8 @@
 
 ## 실제 화면
 
-![GOMCAM 20220312_2109100202](https://user-images.githubusercontent.com/57746855/158017475-82f44197-00c2-4f71-becd-27bda9d321c7.gif)
+![ezgif com-gif-maker (3)](https://user-images.githubusercontent.com/57746855/158065166-f25a2900-74c2-414c-aeba-b00e6837da94.gif)
+
 
 ## 트러블 슈팅
 
