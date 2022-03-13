@@ -1,11 +1,11 @@
 
-
 const express = require("express");
 const app = express();
 const port = 3001; // <- 3000에서 다른 숫자로 변경
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const request = require('request');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -15,22 +15,20 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require("dotenv").config({ path: '../../.env' });
 
-const CLIENT_ID='ON3loCSF2CLvnJMjKwAC'
-const CLIENT_SECRET='ScY6DnsZFB'
-const clientId = CLIENT_ID;
-const clientSecret = CLIENT_SECRET;
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
 
 let link=''
+let keyword_text = '';
 
-const {initialize} = require("koalanlp/Util");
-const {Tagger} = require("koalanlp/proc");
-const {EUNJEON} = require("koalanlp/API");
+const {KMR, KKMA} = require('koalanlp/API');
+const {initialize} = require('koalanlp/Util');
+const {Tagger, Parser} = require('koalanlp/proc');
 
 
-app.post("/text", (req, res) => {//데이터 받는 곳
+app.post("/text", (req, res) => {
   const textdata = req.body.inText;
   console.log(textdata); 
 
@@ -45,7 +43,6 @@ app.post("/text", (req, res) => {//데이터 받는 곳
     }
   };
   
-  
   request.get(options, (error, response, body) => { 
       if(!error && response.statusCode == 200){
       
@@ -54,6 +51,7 @@ app.post("/text", (req, res) => {//데이터 받는 곳
       link = parseJsonToObject['items'][0]['link']; 
       console.log(link);
       
+      keyword_text = '';
         res.json(link);
 
       }else{
@@ -63,18 +61,15 @@ app.post("/text", (req, res) => {//데이터 받는 곳
     })
   });
 
-
-    
     
   app.post("/keyword", (req, res) => {//데이터 받는 곳
-  var textdata = req.body.inText;
+  const textdata = req.body.inText;
   console.log(textdata); 
   
-  var keyword_text = '';
   
-  var url = "https://openapi.naver.com/v1/search/news.json?query=" + encodeURI(textdata) + "&display=30&start=1&sort=sim";
+  const url = "https://openapi.naver.com/v1/search/news.json?query=" + encodeURI(textdata) + "&display=100&start=1&sort=sim";
   
-  var options = {
+  const options = {
     url: url,
     headers: {
         "X-Naver-Client-Id": clientId,
@@ -82,8 +77,6 @@ app.post("/text", (req, res) => {//데이터 받는 곳
       }
       
   };
-  
-  
   request.get(options, (error, response, body) => { 
     if(!error && response.statusCode == 200){
       
@@ -93,84 +86,67 @@ app.post("/text", (req, res) => {//데이터 받는 곳
       const display = parseJsonToObject['display']; 
       console.log(display);
 
-      var description;
+      let description;
       for(var i = 0; i < display ; i++){
         description = description + parseJsonToObject['items'][i]['description'];
       }
-
       console.log(description);
 
-      
-
-      var sortable = {};
-
-      initialize({packages: {EUNJEON: 'LATEST'}}).then(() => {
-        let tagger = new Tagger(EUNJEON);
-        const text = description; 
-        // let tagged = await tagger(text);
-        
-        var arrNumber = new Array();
-        var index = 0;
-        let tagged = tagger.tagSync(text);
-          tagged.forEach((sent, i) => {
-              console.log(`===== Sentence #${i} =====`);
-              console.log(sent.surfaceString());
-      
-              console.log("# Analysis Result");
-              // console.log(sent.singleL ineString());
-              sent.forEach((word) => {
-                  
-                  word.forEach((morph) =>{
-                    if(morph.tag['tagname'] == 'NNP' || morph.tag['tagname'] == 'NNG'){
-                      // console.log(morph.surface);
-                      arrNumber[index] = morph.surface;
-                      // console.log(index);
-                      // console.log(morph.surface);
-                      index++;
-                    }
-                  })
-      
-              });
-          });
-      
-          const result = {};
-          arrNumber.forEach((x) => { 
-            result[x] = (result[x] || 0)+1; 
-          });
-          
-      
-          sortable = Object.entries(result)
-          .sort(([, a], [, b]) => b - a)
-          .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
-      
-
-          console.log(sortable);
-
-          let index_r = 0;
-          for (i of Object.keys(sortable)) {
-            
-            keyword_text = keyword_text + ' ' + i;
-            if (index_r == 1) {
-              break;
-            }
-            index_r++;
-          }
-          
-          
-          // console.log(keyword_text);
-          // res.redirect('image');
-          // console.log(check_index);
+        executor(description).then(() => {
           res.json(keyword_text);
-          
-        }).catch((err) => console.error('Error occurred!', err)).finally(()=>console.log("end"));;
-        
+        }).catch((err) => console.error('Error occurred!', err)).finally(()=>console.log("end"));
       }else{
         console.log(`error = ${response.statusCode}`);
       }
-    });
+  });
   });
   
+  async function executor(description){
+    await initialize({packages: {KMR: '2.0.4', KKMA: '2.0.4'}, verbose: true});
 
+    let tagger = new Tagger(KMR);
+    const text = description; 
+    var arrNumber = new Array();
+    var index = 0;
+    var sortable = {};
+    let tagged = await tagger(text);
+      tagged.forEach((sent, i) => {
+          console.log(`===== Sentence #${i} =====`);
+          console.log(sent.surfaceString());
+  
+          console.log("# Analysis Result");
+          sent.forEach((word) => {
+              
+              word.forEach((morph) =>{
+                if(morph.tag['tagname'] == 'NNP' || morph.tag['tagname'] == 'NNG'){
+                  arrNumber[index] = morph.surface;
+                  index++;
+                }
+              })
+  
+          });
+      });
+  
+      const result = {};
+      arrNumber.forEach((x) => { 
+        result[x] = (result[x] || 0)+1; 
+      });
+  
+      sortable = Object.entries(result)
+      .sort(([, a], [, b]) => b - a)
+      .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+  
+      console.log(sortable);
+
+      let index_r = 0;
+      for (i of Object.keys(sortable)) {
+        keyword_text = keyword_text + ' ' + i;
+        if (index_r == 1) {
+          break;
+        }
+        index_r++;
+      }
+    }
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

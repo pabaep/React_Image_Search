@@ -7,13 +7,10 @@ const QueryProvider = (props) => {
     const updateQueryItemHandler = queryItem => {
       setQueryState({query: queryItem});
     }
-
-
     const queryContext = {
       query: queryState.query,
       updateQuery: updateQueryItemHandler
     }
-    console.log(queryContext);
 
   return (
     <QueryContext.Provider value={queryContext}>{props.children}</QueryContext.Provider>
