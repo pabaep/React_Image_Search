@@ -14,18 +14,6 @@ const ModalWindow = (props) => {
     )
 }
 
-
-// const dotenv = require('dotenv');
-// dotenv.config();
-
-// const clientId = process.env.client_id
-// const clientSecret = process.env.CLIENT_SECRET
-
-
-// const CLIENT_ID='ON3loCSF2CLvnJMjKwAC'
-// const CLIENT_SECRET='ScY6DnsZFB'
-
-
 const portalElement = document.getElementById('modal-window');
 
 const Modal = (props) => {
@@ -37,6 +25,5 @@ const Modal = (props) => {
     </>
   )
 }
-
 
 export default Modal

@@ -13,7 +13,6 @@ const ImageProvider = (props) => {
       imageurl: imageState.imageurl,
       updateImage: updateImageItemHandler
     }
-    console.log(imageContext);
 
   return (
     <ImageContext.Provider value={imageContext}>{props.children}</ImageContext.Provider>

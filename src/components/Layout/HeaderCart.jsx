@@ -10,8 +10,6 @@ const HeaderCart = (props) => {
   const imageContext = useContext(ImageContext);
 
   const onChange = (e) => {
-    // console.log(e.target);
-    // console.log(e.target.value);
     setText(e.target.value);
   }
 
@@ -31,11 +29,6 @@ const HeaderCart = (props) => {
 
   };
 
-  // queryContext.updateQuery(text);
-  // console.log(queryContext.query);
-
-
-  
 
   return (
     <>

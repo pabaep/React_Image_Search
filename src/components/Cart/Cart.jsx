@@ -11,10 +11,8 @@ import CartItem from './CartItem'
 const Cart = (props) => {
 
   let queryContext = useContext(QueryContext)
-  console.log(queryContext.query);
 
   let imageContext = useContext(ImageContext);
-  console.log(imageContext.imageurl);
   
   let url = imageContext.imageurl.replace(/\"/gi, "");
   
@@ -29,6 +27,7 @@ const Cart = (props) => {
         }
     }
 
+
     useEffect(() => {
 
       let text = queryContext.query;
@@ -36,7 +35,7 @@ const Cart = (props) => {
     const textbox = {
       inText: text,
     };
-    fetch("http://localhost:3001/keywordimage", { //text 주소에서 받을 예정
+    fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
     method: "post", //통신방법
     headers: {
       "content-type": "application/json",
@@ -46,40 +45,27 @@ const Cart = (props) => {
 
     }, [queryContext])
 
+
+
+
+
+
   const openRetry = () => {
 
-  if(window.confirm("원하시는 이미지가 아니시군요! \n 만약 원하시는 이미지를 찾고 싶으시면 '확인'버튼을 눌러주세요.")){
-    const text = queryContext.query;
-
-    const keywordbox = {
-      inText: text,
-    };
-    fetch("http://localhost:3001/keyword", { //text 주소에서 받을 예정
-    method: "post", //통신방법
-    headers: {
-      "content-type": "application/json",
+    if(window.confirm("원하시는 이미지가 아니시군요! \n 만약 원하시는 이미지를 찾고 싶으시면 '확인'버튼을 눌러주세요. \n(로딩이 되는 동안 잠시만 기다려 주세요.) ")){
+      const text = queryContext.query;
+      
+      const keywordbox = {
+        inText: text,
+      };
+      fetch("http://localhost:3001/keyword", { //text 주소에서 받을 예정
+      method: "post", //통신방법
+      headers: {
+        "content-type": "application/json",
     },
     body: JSON.stringify(keywordbox), //textbox라는 객체를 보냄
   }).then(response => response.text()).then(queryContext.updateQuery);
-
   }
-
-
-//   const keyword_text = queryContext.query;
-//   console.log(keyword_text);
-//   console.log("dddddd");
-//   const textbox = {
-//     inText: keyword_text,
-//   };
-//   fetch("http://localhost:3001/text", { //text 주소에서 받을 예정
-//   method: "post", //통신방법
-//   headers: {
-//     "content-type": "application/json",
-//   },
-//   body: JSON.stringify(textbox), //textbox라는 객체를 보냄
-// // }).then(response => response.text()).then(console.log));
-// }).then(response => response.text()).then(imageContext.updateImage);
-
   }
 
 
