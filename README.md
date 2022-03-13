@@ -53,7 +53,7 @@
 
 ## 개선 사항
 
-- retry가 한 번만 가능 ( Koalanlp의 문제, "Cannot set asyncOptions after calling any other java function" error 발생 )
+- retry 한 번만 가능 ( Koalanlp의 문제, "Cannot set asyncOptions after calling any other java function" error 발생 )
 
 ## 본 프로젝트를 통해 느낀점
 
