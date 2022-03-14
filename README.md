@@ -2,9 +2,9 @@
 
 ## 😀팀원 구성 :
 
-- 🐰 [황세원](https://github.com/pabaep)
-- 🐮 [손현오](https://github.com/SonHyeono)
-- 🐶 [김병조](https://github.com/KIMBJ1)
+- 🐰 [황세원](https://github.com/pabaep) : 화면 구성 및 API 결과 화면 띄우기 담당
+- 🐮 [손현오](https://github.com/SonHyeono) : open API 연결 부분 담당
+- 🐶 [김병조](https://github.com/KIMBJ1) : 로딩 기능 구현, 기타 기능 담당
 
 ## ✨서비스 소개 :
 
