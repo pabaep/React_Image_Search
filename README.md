@@ -2,9 +2,9 @@
 
 ## 팀원 구성 :
 
-- 🐰 황세원
-- 🐮 손현오
-- 🐶 김병조 : <a href="https://github.com/KIMBJ1"> 
+- 🐰 [황세원](https://github.com/pabaep)
+- 🐮 [손현오](https://github.com/SonHyeono)
+- 🐶 [김병조](https://github.com/KIMBJ1)
 
 ## 🛠️서비스 소개 :
 
@@ -21,7 +21,7 @@
 
    b. 텍스트를 긁어온 후에 Koalanlp를 사용해서 명사들을 추출
 
-   c. 명사들의 빈도수를 측정`
+   c. 명사들의 빈도수를 측정
 
    d. 빈도수가 높은 명사들을 하나씩 텍스트에 붙여서 이미지 api에서 재검색을 시도
    ```
