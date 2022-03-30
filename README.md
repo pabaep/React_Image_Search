@@ -1,4 +1,4 @@
-# 🎈 React_Image_Search
+# 🎈 Find MI (Find My Image)
 
 ## 😀팀원 구성 :
 
